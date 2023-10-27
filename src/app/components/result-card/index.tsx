@@ -3,7 +3,7 @@ import Badge from "../badge";
 
 export default function ResultCard() {
   return(
-    <div className="border max-w-[600px] w-full border-1 rounded-md p-4">
+    <div className="border max-w-[600px] bg-white w-full border-1 rounded-md p-4">
       <div className="flex justify-between">
         <div>
           <p className="font-semibold">Processo n.</p>
