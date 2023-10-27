@@ -9,13 +9,16 @@ import Image from "next/image";
 import { useState } from "react";
 
 export default function SearchProcess() {
-  const [text, setText] = useState("");
+  const [inputText, setInputText] = useState("");
   const [processos, setProcessos] = useState([]);
+  const [notFound, setNotFound] = useState(false);
+  const [emptyInput, setEmptyInput] = useState("");
 
-  async function findAll () {
+  async function findBy () {
+    setNotFound(false)
     const query = {
         query: `query {
-          search(param: "${text}") {
+          search(param: "${inputText}") {
             cnj
             tribunal_origem
           }
@@ -23,7 +26,15 @@ export default function SearchProcess() {
     };
 
     api.post("/", query).then((response) => {
+      if (inputText.trim().length === 0) {
+        setEmptyInput("Voce precisa preencher o campo")
+        // setError("")
+        return 
+      } 
       setProcessos(response.data.data.search) // data
+      console.log(processos.length)
+      processos.length && setNotFound(true)
+      setEmptyInput("")
     }).catch((error) => {
       console.log(error.response);
     })
@@ -37,25 +48,34 @@ export default function SearchProcess() {
       </div>
 
       {/* <div className="flex flex-col sm:flex sm:flex-row w-full justify-center items-center gap-2 sm:gap-0 m-5"> */}
-      <div className="max-w-[600px] w-full flex p-5">
-        <SearchInput onChange={(e) => setText(e.target.value)} />
-        <SearchButton onClick={() => findAll()}>CONSULTAR</SearchButton>
+      <div className="max-w-[600px] w-full flex p-5 gap-3">
+        <div className="w-full">
+          <SearchInput onKeyDown={(e) => e.key === "Enter" && findBy()} onChange={(e) => setInputText(e.target.value)} />
+          <p className="mt-[5px] text-[red]">{emptyInput}</p>
+        </div>
+        <div>
+          <SearchButton onClick={() => findBy()}>CONSULTAR</SearchButton>
+        </div>
       </div>
 
       <div className="w-full">
-        {/* {
-          !processos.length &&
+        {
+          notFound &&
           <div className="flex justify-center flex-col items-center gap-3">
             <p className="max-w-[600px] font-extrabold">Não encontramos nenhum resultado</p>
             <Image src="/notfound.png" alt="search" width={100} height={100} />
           </div>
-        } */}
-
+        }
 
         {
+          processos.length >= 1 &&
+          <div className="w-full flex justify-center flex-col items-center gap-3">
+            <p className="max-w-[600px] w-full font-semibold">Voce encontrou {processos.length} resultado(s):</p>
+          </div>
+        }
+        {
           processos.map((element, index) => (      
-            <div className="w-full flex justify-center flex-col items-center gap-3">
-              <p className="max-w-[600px] w-full font-semibold"  key={index}>Voce encontrou {index + 1} resultado(s):</p>
+            <div key={index} className="w-full flex justify-center flex-col items-center gap-3">
               <ResultCard />
             </div>
         ))
