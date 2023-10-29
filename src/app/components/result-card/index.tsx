@@ -25,6 +25,7 @@ export default function ResultCard({element} : Props) {
         <span className="material-symbols-outlined">
           visibility
         </span>
+
           <p>Ver processo</p>
         </div>
     </Link>  
