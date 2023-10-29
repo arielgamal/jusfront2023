@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss'
+/** @type {import('tailwindcss').Config} */
 
 const config: Config = {
   content: [
@@ -14,12 +15,19 @@ const config: Config = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       screens: {
-        sm: "426px",
-        md: "1024px",
-        lg: "1280px",
+        sm: "500px",
+        md: "768px",
+        lg: "1024px",
         // => @media (min-width: 640px) { ... }
       },
-    },
+      colors: {
+        TJRJ: '#6ee7b7',
+        TJMG: '#121063',
+        TJSC: '#3ab7bf',
+        TJBA: '#ecebff',
+        TJSP: '#ff77e9',
+      },
+    },      
   },
   plugins: [],
 }

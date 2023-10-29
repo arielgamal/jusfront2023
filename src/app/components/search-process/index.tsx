@@ -5,7 +5,7 @@ import SearchButton from "./search-button";
 import SearchInput from "./search-input";
 import ResultCard from "../result-card";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function SearchProcess() {
   const [inputText, setInputText] = useState("");
@@ -13,6 +13,13 @@ export default function SearchProcess() {
   const [notFound, setNotFound] = useState(false);
   const [emptyInput, setEmptyInput] = useState("");
 
+
+  useEffect(() => {
+    const storedData = localStorage.getItem("mykey");
+    if (storedData) {
+      setProcessos(JSON.parse(storedData));
+    }
+  }, [])
   async function findBy () {
     setNotFound(false)
     const query = {
@@ -30,6 +37,7 @@ export default function SearchProcess() {
         return 
       } 
       setProcessos(response.data.data.search) // data
+      localStorage.setItem("mykey", JSON.stringify(response.data.data.search));
       setEmptyInput("")
       response.data.data.search.length === 0 && setNotFound(true)
     }).catch((error) => {
@@ -39,7 +47,6 @@ export default function SearchProcess() {
     })
   }
 
-  console.log(processos)
   return (
     <div className="flex flex-col items-center h-full w-full gap-5 bg-[#fafafa] p-10">
       <div className="flex flex-col items-center justify-center m-5">
@@ -69,7 +76,7 @@ export default function SearchProcess() {
         {
           processos.length >= 1 &&
           <div className="w-full flex justify-center flex-col items-center gap-3">
-            <p className="max-w-[600px] w-full font-semibold">Voce encontrou {processos.length} resultado(s):</p>
+            <p className="max-w-[600px] w-full font-semibold text-[#766966]">Voce encontrou {processos.length} resultado(s):</p>
           </div>
         }
         {

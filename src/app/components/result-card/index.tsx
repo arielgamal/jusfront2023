@@ -21,7 +21,10 @@ export default function ResultCard({element} : Props) {
           </div>
         </div>
 
-        <div className="flex justify-start text-blue-500 mt-6">
+        <div className="flex justify-start font-semibold text-blue-500 mt-6 gap-1">
+        <span className="material-symbols-outlined">
+          visibility
+        </span>
           <p>Ver processo</p>
         </div>
     </Link>  
