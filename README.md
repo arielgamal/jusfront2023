@@ -6,7 +6,7 @@ Inicie esse passos após terminar de rodar a API.
 ## Começando:
 Entre na pasta jusfront
 ```bash
-cd jusfront
+cd jusfront2023
 ```
 
 ## Comando de instalação
