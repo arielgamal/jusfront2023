@@ -53,3 +53,11 @@ TJBA
 TJRJ  
 TJSC  
 TJBA  
+
+
+## Testando a aplicação
+
+```bash
+npm run test
+```
+Obs: É preciso estar com a API rodando.
