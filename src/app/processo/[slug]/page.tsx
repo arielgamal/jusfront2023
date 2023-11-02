@@ -11,7 +11,7 @@ export default function Processo() {
   const [processo, setProcesso] = useState({} as IProcessos);
   const router = useRouter()
 
-  const {slug} = useParams();
+  const { slug } = useParams();
 
   useEffect(() => {
     const query = {

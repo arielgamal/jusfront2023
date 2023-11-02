@@ -31,11 +31,11 @@ export default function SearchProcess() {
       }`
     };
     
+    if (inputText.trim().length === 0) {
+      setEmptyInput("Você precisa preencher o campo")
+      return 
+    } 
     api.post("/", query).then((response) => {
-      if (inputText.trim().length === 0) {
-        setEmptyInput("Voce precisa preencher o campo")
-        return 
-      } 
       setProcessos(response.data.data.search) // data
       localStorage.setItem("mykey", JSON.stringify(response.data.data.search));
       setEmptyInput("")
